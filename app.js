@@ -15,34 +15,34 @@
     console.log(this);
     //console.log('moosipurgi sees');
 
-    // KĆ•IK MUUTUJAD, mis on Ć¼ldised ja muudetavad
+    // KÕIK MUUTUJAD, mis on üldised ja muudetavad
     this.currentRoute = null; // hoian meeles mis lehel olen (home-view, ...)
     this.interval = null;
 
 
 
-    //panen rakenduse tĆ¶Ć¶le
+    //panen rakenduse tööle
     this.init();
   };
 
-  // kirjeldatud kĆµik lehed
+  // kirjeldatud kõik lehed
   Moosipurk.routes = {
     "home-view": {
       render: function(){
-        // kĆ¤ivitan siis kui jĆµuan lehele
+        // käivitan siis kui jõuan lehele
         console.log('JS avalehel');
 
         // kui olemas, teen nulliks
         if(this.interval){ clearInterval(this.interval); }
 
-        // kui jĆµuan avalehele siis kĆ¤ivitub timer, mis hakkab trĆ¼kkima kulunud sekundeid
+        // kui jõuan avalehele siis käivitub timer, mis hakkab trükkima kulunud sekundeid
         // divi sisse #counter
         // hakkab 0st
         var seconds = 0;
         this.interval = window.setInterval(function(){
           seconds++;
           document.querySelector('#counter').innerHTML = seconds;
-        }, 1000); //iga 1000ms tagant kĆ¤ivitub
+        }, 1000); //iga 1000ms tagant käivitub
 
       }
     },
@@ -60,10 +60,10 @@
     }
   };
 
-  //kĆµik moosipurgi funktsioonid tulevad siia sisse
+  //kõik moosipurgi funktsioonid tulevad siia sisse
   Moosipurk.prototype = {
     init: function(){
-      console.log('rakendus kĆ¤ivitus');
+      console.log('rakendus käivitus');
       // Siia tuleb esialgne loogika
 
       window.addEventListener('hashchange', this.routeChange.bind(this));
@@ -73,15 +73,16 @@
       if(!window.location.hash){
         window.location.hash = "home-view";
       }else{
-        //hash oli olemas, kĆ¤ivitan routeChange fn
+        //hash oli olemas, käivitan routeChange fn
         this.routeChange();
 
       }
 
 
-      // hakka kuulama hiireklĆµpse
+      // hakka kuulama hiireklõpse
       this.bindMouseEvents();
     },
+
     bindMouseEvents: function(){
       document.querySelector('.add-new-jar').addEventListener('click', this.addNewClick.bind(this));
     },
@@ -91,6 +92,8 @@
       var ingredients = document.querySelector('.ingredients').value;
       console.log(title + ' ' + ingredients);
 
+
+
       var new_jar = new Jar(title, ingredients);
       var li = new_jar.createHtmlElement();
       document.querySelector('.list-of-jars').appendChild(li);
@@ -99,7 +102,7 @@
     },
     routeChange: function(event){
 
-      // slice vĆµtab vĆµtab # Ć¤ra #home-view >> home-view
+      // slice võtab võtab # ära #home-view >> home-view
       this.currentRoute = window.location.hash.slice(1);
 
       // kas leht on olemas
@@ -109,7 +112,7 @@
         this.updateMenu();
 
         console.log('>>> ' + this.currentRoute);
-        //kĆ¤ivitan selle lehe jaoks ettenĆ¤htud js
+        //käivitan selle lehe jaoks ettenähtud js
         this.routes[this.currentRoute].render();
       }else{
         // 404?
@@ -121,10 +124,10 @@
 
     updateMenu: function(){
 
-      //kui on mingil menĆ¼Ć¼l klass active-menu siis vĆµtame Ć¤ra
+      //kui on mingil menüül klass active-menu siis võtame ära
       document.querySelector('.active-menu').className = document.querySelector('.active-menu').className.replace(' active-menu', '');
 
-      //kĆ¤esolevale lehele lisan juurde
+      //käesolevale lehele lisan juurde
       document.querySelector('.' + this.currentRoute).className += ' active-menu';
 
     }
@@ -145,7 +148,7 @@
       //   span.letter
       //     M
       //   span.content
-      //     Maasikamoos | maasikas, Ćµun
+      //     Maasikamoos | maasikas, õun
 
       var li = document.createElement('li');
 
